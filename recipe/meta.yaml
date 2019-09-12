@@ -66,6 +66,15 @@ test:
     - theano.tensor.tests
     - theano.tests
 
+  source_files:
+    - theano/tests
+
+  commands:
+    - MKL_THREADING_LAYER=GNU theano-cache help            # [unix]
+    - MKL_THREADING_LAYER=GNU theano-nose -v theano/tests  # [unix]
+    - set MKL_THREADING_LAYER=GNU&& theano-cache help            # [win]
+    - set MKL_THREADING_LAYER=GNU&& theano-nose -v theano/tests  # [win]
+
 about:
   home: http://deeplearning.net/software/theano/
   license: BSD 3-Clause
