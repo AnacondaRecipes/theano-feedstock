@@ -78,8 +78,17 @@ test:
 about:
   home: http://deeplearning.net/software/theano/
   license: BSD 3-Clause
+  license_family: BSD
   summary: 'Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs.'
   license_file: LICENSE.txt
+  description: |
+    Theano is a Python library that allows you to define, optimize, and
+    evaluate mathematical expressions involving multi-dimensional arrays
+    efficiently, featuring tight integration with NumPy, transparent use
+    of a GPU, efficient symbolic differentiation, speed and stability
+    optimizations and dynamic C code generation.
+  dev_url: https://github.com/Theano/Theano
+  doc_url: http://deeplearning.net/software/theano/
 
 extra:
   recipe-maintainers:
