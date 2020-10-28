@@ -1,4 +1,4 @@
-{% set version = "1.0.4" %}
+{% set version = "1.0.5" %}
 {% set build = 0 %}
 
 package:
@@ -8,7 +8,7 @@ package:
 source:
   fn: Theano-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/T/Theano/Theano-{{ version }}.tar.gz
-  sha256: 35c9bbef56b61ffa299265a42a4e8f8cb5a07b2997dabaef0f8830b397086913
+  sha256: 6e9439dd53ba995fcae27bf20626074bfc2fff446899dc5c53cb28c1f9202e89
   patches:
     - 0001-Add-support-for-custom-compiler.patch
     - 0002-Extend-default-flags-for-win-32.patch
