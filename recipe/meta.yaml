@@ -1,4 +1,4 @@
-{% set version = "1.0.4" %}
+{% set version = "1.0.5" %}
 {% set build = 0 %}
 
 package:
@@ -6,9 +6,8 @@ package:
   version: {{ version }}
 
 source:
-  fn: Theano-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/T/Theano/Theano-{{ version }}.tar.gz
-  sha256: 35c9bbef56b61ffa299265a42a4e8f8cb5a07b2997dabaef0f8830b397086913
+  sha256: 6e9439dd53ba995fcae27bf20626074bfc2fff446899dc5c53cb28c1f9202e89
   patches:
     - 0001-Add-support-for-custom-compiler.patch
     - 0002-Extend-default-flags-for-win-32.patch
@@ -21,27 +20,26 @@ build:
     - python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
+  build:
+    - python                                 # [build_platform != target_platform]
+    - cross-python_{{ target_platform }}     # [build_platform != target_platform]
   host:
+    - pip
     - python
-    - setuptools
-    - cython
   run:
-    - {{ compiler('cxx') }}  # [unix]
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
     - python
-    - libpython >=2.0        # [win]
-    - m2w64-toolchain        # [win]
     - setuptools
     - six >=1.9.0
     - numpy >=1.9.1
     - scipy >=0.14
-    - {{ pin_compatible('pygpu', '0.7', max_pin='0.8') }}   # [not osx]
+    - pygpu >=0.7.0,<0.8
 
 test:
   requires:
     - nose >=1.3.0
     - nose-parameterized >=0.5.0
-    - parameterized
-
   imports:
     - theano
     - theano.compile
@@ -66,28 +64,12 @@ test:
     - theano.tensor.tests
     - theano.tests
 
-  source_files:
-    - theano/tests
-
-  commands:
-    - MKL_THREADING_LAYER=GNU theano-cache help            # [unix]
-    - MKL_THREADING_LAYER=GNU theano-nose -v theano/tests  # [unix]
-    - set MKL_THREADING_LAYER=GNU&& theano-cache help            # [win]
-    - set MKL_THREADING_LAYER=GNU&& theano-nose -v theano/tests  # [win]
-
 about:
   home: http://deeplearning.net/software/theano/
-  license: BSD 3-Clause
-  license_family: BSD
-  summary: 'Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs.'
+  license: BSD-3-Clause
+  summary: Optimizing compiler for evaluating mathematical expressions on CPUs and GPUs.
   license_file: LICENSE.txt
-  description: |
-    Theano is a Python library that allows you to define, optimize, and
-    evaluate mathematical expressions involving multi-dimensional arrays
-    efficiently, featuring tight integration with NumPy, transparent use
-    of a GPU, efficient symbolic differentiation, speed and stability
-    optimizations and dynamic C code generation.
-  dev_url: https://github.com/Theano/Theano
+  dev_url: https://github.com/Theano/Theano/
   doc_url: http://deeplearning.net/software/theano/
 
 extra:
